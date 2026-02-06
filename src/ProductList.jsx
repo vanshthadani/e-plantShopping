@@ -28,6 +28,7 @@ const plants = [
 ];
 
 function ProductList() {
+  const dispatch = useDispatch();
   return (
     <div>
       <h1>Our Plants</h1>
@@ -38,7 +39,10 @@ function ProductList() {
           <img src={plant.image} alt={plant.name} width="150" />
           <p>Category: {plant.category}</p>
           <p>Price: ${plant.price}</p>
-          <button>Add to Cart</button>
+          <button onClick={() => dispatch(addToCart(plant))}>
+  Add to Cart
+</button>
+
           <hr />
         </div>
       ))}
