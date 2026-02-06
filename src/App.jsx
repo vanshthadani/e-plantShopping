@@ -1,18 +1,15 @@
 import React from "react";
 import "./App.css";
+import Navbar from "./components/Navbar";
+import ProductList from "./components/ProductList";
 
 function App() {
   return (
-    <div className="landing-page">
-      <div className="landing-content">
-        <h1>Paradise Nursery</h1>
-        <p>Where Green Meets Serenity</p>
-        <button>Get Started</button>
-      </div>
+    <div>
+      <Navbar />
+      <ProductList />
     </div>
   );
 }
 
 export default App;
-
-
