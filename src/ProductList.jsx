@@ -1,53 +1,77 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/CartSlice";
+import Navbar from "./Navbar";
 
-
-const plants = [
-  {
-    id: 1,
-    name: "Snake Plant",
-    price: 15,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1587502536263-9298f97c0c5b"
-  },
-  {
-    id: 2,
-    name: "Peace Lily",
-    price: 18,
-    category: "Indoor Plants",
-    image: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b"
-  },
-  {
-    id: 3,
-    name: "Aloe Vera",
-    price: 12,
-    category: "Medicinal Plants",
-    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5"
-  }
-];
+const plantData = {
+  "Indoor Plants": [
+    {
+      id: 1,
+      name: "Snake Plant",
+      price: 15,
+      image: "https://via.placeholder.com/150"
+    },
+    {
+      id: 2,
+      name: "Peace Lily",
+      price: 18,
+      image: "https://via.placeholder.com/150"
+    }
+  ],
+  "Outdoor Plants": [
+    {
+      id: 3,
+      name: "Rose Plant",
+      price: 20,
+      image: "https://via.placeholder.com/150"
+    },
+    {
+      id: 4,
+      name: "Tulsi",
+      price: 10,
+      image: "https://via.placeholder.com/150"
+    }
+  ],
+  "Medicinal Plants": [
+    {
+      id: 5,
+      name: "Aloe Vera",
+      price: 12,
+      image: "https://via.placeholder.com/150"
+    },
+    {
+      id: 6,
+      name: "Mint",
+      price: 8,
+      image: "https://via.placeholder.com/150"
+    }
+  ]
+};
 
 function ProductList() {
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const [disabledButtons, setDisabledButtons] = useState([]);
+
+  const handleAddToCart = (plant) => {
+    dispatch(addToCart(plant));
+    setDisabledButtons([...disabledButtons, plant.id]);
+  };
+
   return (
-    <div>
-      <h1>Our Plants</h1>
+    <>
+      <Navbar />
+      <div style={{ padding: "20px" }}>
+        <h1>Our Plants</h1>
 
-      {plants.map((plant) => (
-        <div key={plant.id}>
-          <h3>{plant.name}</h3>
-          <img src={plant.image} alt={plant.name} width="150" />
-          <p>Category: {plant.category}</p>
-          <p>Price: ${plant.price}</p>
-          <button onClick={() => dispatch(addToCart(plant))}>
-  Add to Cart
-</button>
+        {Object.keys(plantData).map((category) => (
+          <div key={category}>
+            <h2>{category}</h2>
 
-          <hr />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export default ProductList;
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+              {plantData[category].map((plant) => (
+                <div
+                  key={plant.id}
+                  style={{
+                    border: "1px solid #ccc",
+ ProductList;
